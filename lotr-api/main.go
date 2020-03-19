@@ -14,9 +14,9 @@ import (
 // Character representation for database
 type Character struct {
 	gorm.Model
-	Name  string
-	Link  string
-	Image string
+	Title string `json:"title"`
+	Link  string `json:"link"`
+	Image string `json:"image"`
 }
 
 func allCharacters(w http.ResponseWriter, r *http.Request) {
@@ -25,6 +25,9 @@ func allCharacters(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic("Database connection failed")
 	}
+
+	enableCors(&w)
+
 	defer db.Close()
 
 	var characters []Character
@@ -38,6 +41,10 @@ func handleRequests() {
 	myRouter := mux.NewRouter().StrictSlash(true)
 	myRouter.HandleFunc("/characters", allCharacters).Methods("GET")
 	log.Fatal(http.ListenAndServe(":8081", myRouter))
+}
+
+func enableCors(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
 }
 
 func main() {
