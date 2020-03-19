@@ -11,6 +11,7 @@ run r:
 	@echo [Running LOTR project]
 	@make init
 	@make scrapper
+	@cp ./data.json ./lotr-populate-db/data.json
 	@docker-compose up --build
 
 .PHONY: scrapper s init i run r

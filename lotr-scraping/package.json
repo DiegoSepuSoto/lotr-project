@@ -1,7 +1,11 @@
 {
   "name": "lotr-scraping",
   "version": "0.0.1",
-  "description": "",
+  "description": "Get information from internet and save it to a json file",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DiegoSepuSoto/lotr-project"
+  },
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js"

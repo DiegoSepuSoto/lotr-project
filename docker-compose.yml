@@ -13,6 +13,8 @@ services:
     build: ./lotr-populate-db/.
     depends_on:
       - db
+    links:
+      - db
 
   api:
     build: ./lotr-api/.
@@ -20,5 +22,6 @@ services:
       - '8081:8081'
     depends_on:
       - db
+      - populate
     links:
       - db

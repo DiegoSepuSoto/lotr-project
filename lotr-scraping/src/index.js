@@ -37,7 +37,7 @@ const main = async () => {
     else characters[i] = null;
   }
 
-  fs.writeFileSync('../lotr-populate-db/data.json', JSON.stringify({characters}, null, 2));
+  fs.writeFileSync('data.json', JSON.stringify({characters}, null, 2));
 
   await browser.close();
 };
