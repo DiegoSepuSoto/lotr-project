@@ -11,7 +11,7 @@ exports.getCharacterInfo = async (browser, characterURL) => {
       if (images.length > 1 && title) {
         const image = images[1];
         const link = image.src;
-        return {name: title.innerHTML, image: link};
+        return {name: title.innerText, image: link};
       }
 
       return null;
