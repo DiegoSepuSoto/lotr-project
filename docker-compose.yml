@@ -25,3 +25,24 @@ services:
       - populate
     links:
       - db
+
+  frontend-dev:
+    build:
+      context: ./lotr-frontend/.
+      dockerfile: Dockerfile.dev
+    ports:
+      - '3001:3000'
+    environment:
+      API_URL: api
+    volumes:
+      - /app/node_modules
+      - ./lotr-frontend:/app
+
+  frontend-prod:
+    build:
+      context: ./lotr-frontend/.
+      dockerfile: Dockerfile.prod
+    ports:
+      - '3000:80'
+    environment:
+      API_URL: api

@@ -6,6 +6,8 @@ import axios from 'axios';
 
 import Character from '../Character/Character';
 
+require('dotenv').config();
+
 function Characters() {
   const [characters, setCharacters] = useState();
   const [loading, setLoading] = useState(true);
@@ -23,7 +25,7 @@ function Characters() {
   }
 
   async function fetchCharacters() {
-    const {data} = await axios.get('http://localhost:8081/characters');
+    const {data} = await axios.get(`http://localhost:8081/characters`);
     setCharacters(data);
     setLoading(false);
   }

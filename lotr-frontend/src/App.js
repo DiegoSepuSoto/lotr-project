@@ -11,7 +11,7 @@ function App() {
     <>
       <AppBar className="navbar" position="static">
         <Toolbar>
-          <Typography variant="h5">Lord Of The Rings Project</Typography>
+          <Typography variant="h5">Lord Of The Rings Mini-Project</Typography>
         </Toolbar>
       </AppBar>
       <Container>
