@@ -24,10 +24,12 @@ const getCharacterInfo = async (browser, characterURL) => {
 };
 
 exports.createCharactersArray = async (characters, browser, category) => {
+  const unwantedImage =
+    'http://tolkiengateway.net/w/images/thumb/f/f2/Sound-icon.png/38px-Sound-icon.png';
   try {
     for (let i = 0; i < characters.length; i++) {
       const info = await getCharacterInfo(browser, characters[i]);
-      if (info !== null && info !== undefined)
+      if (info !== null && info !== undefined && info.image !== unwantedImage)
         characters[i] = {
           link: characters[i],
           image: info.image,

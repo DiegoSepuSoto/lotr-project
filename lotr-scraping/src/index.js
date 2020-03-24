@@ -53,7 +53,7 @@ const getCharacters = async () => {
       return elements;
     });
 
-    let characters_silm = await page_hobb.evaluate(() => {
+    let characters_silm = await page_sil.evaluate(() => {
       const items = document.querySelectorAll('li');
 
       let elements = [];
