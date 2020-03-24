@@ -19,8 +19,10 @@ type Character struct {
 	Image string `json:"image"`
 }
 
+const postgresInfo = "host=db port=5432 user=postgres dbname=lotr password=password sslmode=disable"
+
 func allCharacters(w http.ResponseWriter, r *http.Request) {
-	db, err := gorm.Open("postgres", "host=db port=5432 user=postgres dbname=lotr password=password sslmode=disable")
+	db, err := gorm.Open("postgres", postgresInfo)
 
 	if err != nil {
 		panic("Database connection failed")
@@ -32,7 +34,61 @@ func allCharacters(w http.ResponseWriter, r *http.Request) {
 
 	var characters []Character
 	db.Find(&characters)
-	fmt.Println("{}", characters)
+	fmt.Println("[Lord Of The Rings Characters] Len: ", len(characters))
+
+	json.NewEncoder(w).Encode(characters)
+}
+
+func lotrCharacters(w http.ResponseWriter, r *http.Request) {
+	db, err := gorm.Open("postgres", postgresInfo)
+
+	if err != nil {
+		panic("Database connection failed")
+	}
+
+	enableCors(&w)
+
+	defer db.Close()
+
+	var characters []Character
+	db.Where("category = ?", "lotr_char").Find(&characters)
+	fmt.Println("[Lord Of The Rings Characters] Len: ", len(characters))
+
+	json.NewEncoder(w).Encode(characters)
+}
+
+func hobbCharacters(w http.ResponseWriter, r *http.Request) {
+	db, err := gorm.Open("postgres", postgresInfo)
+
+	if err != nil {
+		panic("Database connection failed")
+	}
+
+	enableCors(&w)
+
+	defer db.Close()
+
+	var characters []Character
+	db.Where("category = ?", "hobb_char").Find(&characters)
+	fmt.Println("[Hobbit Characters] Len: ", len(characters))
+
+	json.NewEncoder(w).Encode(characters)
+}
+
+func silmCharacters(w http.ResponseWriter, r *http.Request) {
+	db, err := gorm.Open("postgres", postgresInfo)
+
+	if err != nil {
+		panic("Database connection failed")
+	}
+
+	enableCors(&w)
+
+	defer db.Close()
+
+	var characters []Character
+	db.Where("category = ?", "silm_char").Find(&characters)
+	fmt.Println("[Silmarillion Characters] Len: ", len(characters))
 
 	json.NewEncoder(w).Encode(characters)
 }
@@ -40,6 +96,9 @@ func allCharacters(w http.ResponseWriter, r *http.Request) {
 func handleRequests() {
 	myRouter := mux.NewRouter().StrictSlash(true)
 	myRouter.HandleFunc("/characters", allCharacters).Methods("GET")
+	myRouter.HandleFunc("/lotr", lotrCharacters).Methods("GET")
+	myRouter.HandleFunc("/hobbit", hobbCharacters).Methods("GET")
+	myRouter.HandleFunc("/silmarillion", silmCharacters).Methods("GET")
 	log.Fatal(http.ListenAndServe(":8081", myRouter))
 }
 
@@ -48,7 +107,7 @@ func enableCors(w *http.ResponseWriter) {
 }
 
 func main() {
-	fmt.Println("Running LOTR API")
+	fmt.Println("[Lord Of The Rings API] Running in port 8081")
 
 	// Handle Subsequent requests
 	handleRequests()
