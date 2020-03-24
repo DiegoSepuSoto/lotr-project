@@ -15,6 +15,10 @@ exports.Character = db.define('character', {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  category: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
   up_votes: {
     type: Sequelize.INTEGER,
     defaultValue: 0,

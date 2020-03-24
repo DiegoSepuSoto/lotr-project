@@ -5,7 +5,11 @@ const {saveInDatabase} = require('./saveInDatabase');
 const raw = fs.readFileSync('data.json');
 const {characters} = JSON.parse(raw);
 
-console.log('Waiting for 30 seconds for Postgresql to run');
+console.log('Waiting 60 seconds for Postgresql to run');
 setTimeout(async () => {
-  await saveInDatabase(characters);
-}, 30000);
+  try {
+    await saveInDatabase(characters);
+  } catch (error) {
+    console.error(error);
+  }
+}, 60000);
