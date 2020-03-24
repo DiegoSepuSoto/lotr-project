@@ -8,7 +8,7 @@ import Character from '../Character/Character';
 
 require('dotenv').config();
 
-function Characters() {
+function Characters(props) {
   const [characters, setCharacters] = useState();
   const [loading, setLoading] = useState(true);
 
@@ -24,15 +24,15 @@ function Characters() {
     return charactersItems;
   }
 
-  async function fetchCharacters() {
-    const {data} = await axios.get(`http://localhost:8081/characters`);
-    setCharacters(data);
-    setLoading(false);
-  }
-
   useEffect(() => {
+    async function fetchCharacters() {
+      const {data} = await axios.get(props.url);
+      setCharacters(data);
+      setLoading(false);
+    }
+
     fetchCharacters();
-  }, []);
+  }, [props.url]);
 
   return (
     <Grid container spacing={2}>
