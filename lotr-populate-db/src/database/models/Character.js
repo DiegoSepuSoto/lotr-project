@@ -27,4 +27,12 @@ exports.Character = db.define('character', {
     type: Sequelize.DATE,
     defaultValue: null,
   },
+  created_at: {
+    type: Sequelize.DATE,
+    defaultValue: null,
+  },
+  updated_at: {
+    type: Sequelize.DATE,
+    defaultValue: null,
+  },
 });
