@@ -8,6 +8,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 const pgConn = "host=db port=5432 user=postgres dbname=lotr password=password sslmode=disable"
@@ -19,17 +20,18 @@ func enableCors(w *http.ResponseWriter) {
 func allCharacters(w http.ResponseWriter, r *http.Request) {
 	db, err := gorm.Open("postgres", pgConn)
 
-	if err != nil {
-		panic("Database connection failed")
-	}
-
 	enableCors(&w)
+
+	if err != nil {
+		fmt.Println("[Lord Of The Rings Universe Characters] [Error] Database connection failed")
+		panic(err)
+	}
 
 	defer db.Close()
 
 	var chars []Character
 	db.Order("up_votes desc, title").Find(&chars)
-	fmt.Println("[Lord Of The Rings Characters] Len: ", len(chars))
+	fmt.Println("[Lord Of The Rings Universe Characters] Len: ", len(chars))
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(chars)
@@ -39,7 +41,8 @@ func lotrCharacters(w http.ResponseWriter, r *http.Request) {
 	db, err := gorm.Open("postgres", pgConn)
 
 	if err != nil {
-		panic("Database connection failed")
+		fmt.Println("[Lord Of The Rings Characters] [Error] Database connection failed")
+		panic(err)
 	}
 
 	enableCors(&w)
@@ -58,7 +61,8 @@ func hobbCharacters(w http.ResponseWriter, r *http.Request) {
 	db, err := gorm.Open("postgres", pgConn)
 
 	if err != nil {
-		panic("Database connection failed")
+		fmt.Println("[The Hobbit Characters] [Error] Database connection failed")
+		panic(err)
 	}
 
 	enableCors(&w)
@@ -77,7 +81,8 @@ func silmCharacters(w http.ResponseWriter, r *http.Request) {
 	db, err := gorm.Open("postgres", pgConn)
 
 	if err != nil {
-		panic("Database connection failed")
+		fmt.Println("[Silmarillion Characters] [Error] Database connection failed")
+		panic(err)
 	}
 
 	enableCors(&w)
@@ -96,8 +101,7 @@ func upVote(w http.ResponseWriter, r *http.Request) {
 	db, err := gorm.Open("postgres", pgConn)
 
 	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Database connection failed"))
+		fmt.Println("[Character Up Vote] [Error] Database connection failed")
 		panic("Database connection failed")
 	}
 

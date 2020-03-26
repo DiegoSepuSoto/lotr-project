@@ -5,13 +5,10 @@ import (
 )
 
 // HandleRequests ...
-func HandleRequests() *mux.Router {
-	rout := mux.NewRouter().StrictSlash(true)
-	rout.HandleFunc("/characters", allCharacters).Methods("GET")
-	rout.HandleFunc("/lotr", lotrCharacters).Methods("GET")
-	rout.HandleFunc("/hobbit", hobbCharacters).Methods("GET")
-	rout.HandleFunc("/silmarillion", silmCharacters).Methods("GET")
-	rout.HandleFunc("/up_vote/{id}", upVote).Methods("PUT")
-
-	return rout
+func HandleRequests(r *mux.Router) {
+	r.HandleFunc("/characters", allCharacters).Methods("GET")
+	r.HandleFunc("/lotr", lotrCharacters).Methods("GET")
+	r.HandleFunc("/hobbit", hobbCharacters).Methods("GET")
+	r.HandleFunc("/silmarillion", silmCharacters).Methods("GET")
+	r.HandleFunc("/up_vote/{id}", upVote).Methods("PUT")
 }

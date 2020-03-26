@@ -3,20 +3,20 @@ package main
 import (
 	"fmt"
 	"log"
-	c "lotr-api/character"
 	"net/http"
 
 	"github.com/gorilla/mux"
+
+	c "lotr-api/character"
 )
 
 func main() {
 
-	mainRout := mux.NewRouter()
+	r := mux.NewRouter().StrictSlash(true)
 
-	cRout := c.HandleRequests()
-
-	mainRout.Handle("/", cRout)
+	c.HandleRequests(r)
 
 	fmt.Println("[Lord Of The Rings API] Running in port 8081")
-	log.Fatal(http.ListenAndServe(":8081", mainRout))
+
+	log.Fatal(http.ListenAndServe(":8081", r))
 }
