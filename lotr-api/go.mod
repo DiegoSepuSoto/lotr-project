@@ -1,4 +1,4 @@
-module main.go
+module lotr-api
 
 go 1.14
 
