@@ -15,6 +15,12 @@ import (
 
 const pgConn = "host=db port=5432 user=postgres dbname=lotr password=password sslmode=disable"
 
+// @Summary Return all characters
+// @Description Gets all characters stored in postgresql database
+// @Produce  json
+// @Success 200 {array} Character[] [characters]
+// @Router /characters [get]
+// @Tags Characters
 func allCharacters(w http.ResponseWriter, r *http.Request) {
 	db, err := gorm.Open("postgres", pgConn)
 
@@ -33,6 +39,12 @@ func allCharacters(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(chars)
 }
 
+// @Summary Return all of the characters in The Lord of The Rings
+// @Description Gets all characters with the category 'lotr'
+// @Produce  json
+// @Success 200 {array} Character[] [characters]
+// @Router /lotr [get]
+// @Tags Characters
 func lotrCharacters(w http.ResponseWriter, r *http.Request) {
 	db, err := gorm.Open("postgres", pgConn)
 
@@ -51,6 +63,12 @@ func lotrCharacters(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(chars)
 }
 
+// @Summary Return all of the characters in The Hobbit
+// @Description Gets all characters with the category 'hobb'
+// @Produce  json
+// @Success 200 {array} Character[] [characters]
+// @Router /hobbit [get]
+// @Tags Characters
 func hobbCharacters(w http.ResponseWriter, r *http.Request) {
 	db, err := gorm.Open("postgres", pgConn)
 
@@ -69,6 +87,12 @@ func hobbCharacters(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(chars)
 }
 
+// @Summary Return all of the characters in The Silmarillion
+// @Description Gets all characters with the category 'silm'
+// @Produce  json
+// @Success 200 {array} Character[] [characters]
+// @Router /silmarillion [get]
+// @Tags Characters
 func silmCharacters(w http.ResponseWriter, r *http.Request) {
 	db, err := gorm.Open("postgres", pgConn)
 
@@ -87,6 +111,13 @@ func silmCharacters(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(chars)
 }
 
+// @Summary Give an Up Vote
+// @Description Gives an Up Vpte for certain character
+// @Param   id      path   int     true  "Character ID"
+// @Produce  json
+// @Success 200 {string} string "OK"
+// @Router /up_vote [put]
+// @Tags Characters
 func upVote(w http.ResponseWriter, r *http.Request) {
 	db, err := gorm.Open("postgres", pgConn)
 
