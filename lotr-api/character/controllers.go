@@ -8,19 +8,15 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
+
+	// Postgres dialect
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 const pgConn = "host=db port=5432 user=postgres dbname=lotr password=password sslmode=disable"
 
-func enableCors(w *http.ResponseWriter) {
-	(*w).Header().Set("Access-Control-Allow-Origin", "*")
-}
-
 func allCharacters(w http.ResponseWriter, r *http.Request) {
 	db, err := gorm.Open("postgres", pgConn)
-
-	enableCors(&w)
 
 	if err != nil {
 		fmt.Println("[Lord Of The Rings Universe Characters] [Error] Database connection failed")
@@ -45,8 +41,6 @@ func lotrCharacters(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	enableCors(&w)
-
 	defer db.Close()
 
 	var chars []Character
@@ -65,8 +59,6 @@ func hobbCharacters(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	enableCors(&w)
-
 	defer db.Close()
 
 	var chars []Character
@@ -84,8 +76,6 @@ func silmCharacters(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("[Silmarillion Characters] [Error] Database connection failed")
 		panic(err)
 	}
-
-	enableCors(&w)
 
 	defer db.Close()
 
@@ -118,10 +108,9 @@ func upVote(w http.ResponseWriter, r *http.Request) {
 	char.UpVotes++
 	db.Save(&char)
 
-	enableCors(&w)
-
 	fmt.Println("[Character Up Vote] Character:", char.Title)
 
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("OK"))
 
