@@ -18,7 +18,7 @@ function Characters(props) {
       charactersItems.push(
         <Grid item xs={12} sm={3} lg={2} key={i}>
           <Character
-            id={characters[i].ID}
+            id={characters[i].id}
             link={characters[i].link}
             img={characters[i].image}
             title={characters[i].title}
