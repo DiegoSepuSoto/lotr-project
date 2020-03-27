@@ -17,7 +17,12 @@ function Characters(props) {
     for (let i = 0; i < characters.length; i++) {
       charactersItems.push(
         <Grid item xs={12} sm={3} lg={2} key={i}>
-          <Character link={characters[i].link} img={characters[i].image} title={characters[i].title}></Character>
+          <Character
+            id={characters[i].ID}
+            link={characters[i].link}
+            img={characters[i].image}
+            title={characters[i].title}
+          ></Character>
         </Grid>,
       );
     }
