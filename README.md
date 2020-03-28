@@ -12,3 +12,7 @@ I'll use this project in order to implement new things while I learn them.
 ## Documentation
 
 Please visit http://localhost:8081/documentation/index.html
+
+## Public Uselessness Notice
+
+This project wouldn't be updated anytime soon. I hope I can return to it sometime.
