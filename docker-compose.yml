@@ -6,8 +6,8 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: postgres
       POSTGRES_DB: lotr
-    # ports:
-    #   - 5432:5432 Only for development!
+    ports:
+      - '5432:5432'
     volumes:
       - ./pgdata:/var/lib/postgresql/data
 
@@ -22,6 +22,16 @@ services:
     build: ./lotr-api/.
     ports:
       - '8081:8081'
+    depends_on:
+      - db
+      - populate
+    links:
+      - db
+
+  graphql:
+    build: ./lotr-graphql/.
+    ports:
+      - '5000:5000'
     depends_on:
       - db
       - populate

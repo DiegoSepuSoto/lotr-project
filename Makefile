@@ -12,6 +12,7 @@ init i:
 	@cd lotr-scraping && rm -rf node_modules/ && npm install
 	@cd lotr-populate-db && rm -rf node_modules/ && npm install
 	@cd lotr-frontend && rm -rf node_modules/ && npm install
+	@cd lotr-graphql && rm -rf node_modules/ && npm install
 
 run r:
 	@echo [Running The Lord of The Rings project]
