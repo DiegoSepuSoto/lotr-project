@@ -5,8 +5,9 @@ exports.saveInDatabase = async (characters) => {
   for (let i = 0; i < characters.length; i++) {
     if (characters[i] !== null) {
       const {title, link, image, category} = characters[i];
+      const now = Date.now();
       try {
-        await Character.create({title, link, image, category});
+        await Character.create({title, link, image, category, created_at: now, updated_at: now});
       } catch (error) {
         console.log(error);
       }

@@ -6,6 +6,9 @@ exports.db = new Sequelize(process.env.DB, process.env.DB_USER, process.env.DB_P
   host: process.env.HOST,
   port: process.env.PORT,
   dialect: 'postgres',
+  define: {
+    timestamps: false,
+  },
   pool: {
     max: 5,
     min: 0,
